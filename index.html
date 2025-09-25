@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoVenture</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Global Styles ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  font-family:'Orbitron', sans-serif;
+  background:#0b0b0b;
+  color:#fff;
+  scroll-behavior:smooth;
+}
+a{text-decoration:none;color:inherit;}
+img{
+  width:100%;
+  display:block;
+  border-radius:12px;
+  transition:0.5s;
+}
+
+/* ===== Navbar ===== */
+nav{
+  width:100%;
+  background:#111;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 50px;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 2px 10px #a020f0aa;
+}
+nav .logo{
+  font-size:1.8rem;
+  font-weight:700;
+  color:#a020f0;
+  letter-spacing:2px;
+  cursor:pointer;
+}
+nav ul{
+  list-style:none;
+  display:flex;
+  align-items:center;
+}
+nav ul li{
+  margin-left:30px;
+}
+nav ul li a{
+  font-weight:bold;
+  text-transform:uppercase;
+  padding:8px 15px;
+  border-radius:50px;
+  transition:0.4s;
+  position:relative;
+  color:#d8bfff;
+}
+nav ul li a::after{
+  content:'';
+  position:absolute;
+  top:0; left:-50%;
+  width:0; height:100%;
+  background:rgba(255,255,255,0.2);
+  transform:skewX(-20deg);
+  transition:0.4s;
+}
+nav ul li a:hover::after{width:200%;}
+nav ul li a:hover{
+  color:#0b0b0b;
+  background:linear-gradient(45deg,#a020f0,#d8bfff);
+  box-shadow:0 0 20px #a020f0,0 0 40px #d8bfff;
+  transform:scale(1.1);
+}
+
+/* ===== Hero Section ===== */
+.hero{
+  height:100vh;
+  background:url('./bmwm3.jpg') center/cover no-repeat;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(16,0,32,0.6);
+  z-index:1;
+}
+.hero-content{
+  position:relative;
+  z-index:2;
+  color:#fff;
+  max-width:700px;
+}
+.hero h1{
+  font-size:3rem;
+  margin-bottom:20px;
+  background:linear-gradient(90deg, #a020f0, #d8bfff, #a020f0);
+   -webkit-background-clip: text;
+  -webkit-text-fill-color:transparent;
+  animation:shine 3s linear infinite;
+  font-weight:800;
+  letter-spacing:2px;
+}
+@keyframes shine{
+  0%{background-position:0%;}
+  100%{background-position:200%;}
+}
+.hero p{
+  font-size:1.2rem;
+  margin-bottom:25px;
+  color:#ccc;
+  line-height:1.5;
+}
+.hero .btn{
+  padding:15px 40px;
+  margin:10px;
+  border:2px solid #a020f0;
+  border-radius:50px;
+  font-weight:bold;
+  font-size:1rem;
+  text-transform:uppercase;
+  position:relative;
+  overflow:hidden;
+  transition:0.5s;
+  color:#a020f0;
+}
+.hero .btn::after{
+  content:'';
+  position:absolute;
+  top:0; left:-50%;
+  width:0; height:100%;
+  background:rgba(255,255,255,0.3);
+  transform:skewX(-20deg);
+  transition:0.5s;
+}
+.hero .btn:hover::after{width:200%;}
+.hero .btn:hover{
+  background:linear-gradient(45deg,#a020f0,#d8bfff);
+  color:#0b0b0b;
+  box-shadow:0 0 25px #a020f0,0 0 50px #d8bfff;
+  transform:scale(1.15) rotate(-1deg);
+}
+
+/* ===== Categories ===== */
+.categories{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin:40px 0;
+}
+.categories a{
+  margin:10px;
+  padding:12px 30px;
+  border:2px solid #d8bfff;
+  border-radius:50px;
+  font-weight:bold;
+  font-size:0.9rem;
+  text-transform:uppercase;
+  position:relative;
+  overflow:hidden;
+  transition:0.5s;
+  color:#d8bfff;
+}
+.categories a::after{
+  content:'';
+  position:absolute;
+  top:0; left:-50%;
+  width:0; height:100%;
+  background:rgba(255,255,255,0.2);
+  transform:skewX(-20deg);
+  transition:0.5s;
+}
+.categories a:hover::after{width:200%;}
+.categories a:hover{
+  background:linear-gradient(45deg,#a020f0,#d8bfff);
+  color:#0b0b0b;
+  box-shadow:0 0 20px #a020f0,0 0 40px #d8bfff;
+  transform:scale(1.1) rotate(-1deg);
+}
+
+/* ===== Vehicle Grid ===== */
+.vehicle-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+  padding:0 50px 50px 50px;
+}
+
+/* ===== Vehicle Card ===== */
+.vehicle-card{
+  background:#1a001f;
+  border-radius:15px;
+  overflow:hidden;
+  position:relative;
+  transition:0.5s;
+  box-shadow:0 0 15px #a020f0;
+}
+.vehicle-card:hover{
+  transform:scale(1.08) rotate(-1deg);
+  box-shadow:0 0 30px #a020f0,0 0 50px #d8bfff;
+}
+.vehicle-card img{
+  border-bottom:2px solid #a020f0;
+  height:200px;
+  object-fit:cover;
+  transition:0.5s;
+}
+.vehicle-card:hover img{
+  transform:scale(1.1);
+}
+.vehicle-info{
+  padding:15px;
+}
+.vehicle-info h3{
+  color:#a020f0;
+  margin-bottom:8px;
+  font-size:1.3rem;
+}
+.vehicle-info p{
+  color:#ccc;
+  font-size:0.95rem;
+  line-height:1.4;
+}
+.vehicle-info ul{
+  color:#d8bfff;
+  margin:5px 0;
+  padding-left:20px;
+  font-size:0.9rem;
+}
+.vehicle-info a{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 20px;
+  border:2px solid #a020f0;
+  border-radius:50px;
+  color:#a020f0;
+  font-weight:bold;
+  transition:0.3s;
+}
+.vehicle-info a:hover{
+  background:linear-gradient(45deg,#a020f0,#d8bfff);
+  color:#0b0b0b;
+  box-shadow:0 0 20px #a020f0,0 0 40px #d8bfff;
+}
+
+/* ===== About Section ===== */
+.about{
+  padding:60px 50px;
+  text-align:center;
+}
+.about h2{font-size:2.5rem;margin-bottom:20px;color:#a020f0;}
+.about p{color:#ccc; line-height:1.6;}
+
+/* ===== Contact Section ===== */
+.contact{
+  padding:60px 50px;
+  background:#111;
+  text-align:center;
+}
+.contact h2{color:#a020f0; margin-bottom:20px;}
+.contact form{max-width:500px; margin:auto;}
+.contact input, .contact textarea{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:10px;
+  border:2px solid #a020f0;
+  background:#0b0b0b;
+  color:#fff;
+  transition:0.3s;
+}
+.contact input:focus, .contact textarea:focus{
+  box-shadow:0 0 10px #a020f0;
+  border-color:#a020f0;
+  outline:none;
+}
+.contact button{
+  padding:12px 25px;
+  border-radius:50px;
+  border:2px solid #a020f0;
+  background:transparent;
+  color:#a020f0;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+.contact button:hover{
+  background:linear-gradient(45deg,#a020f0,#d8bfff);
+  color:#0b0b0b;
+  box-shadow:0 0 20px #a020f0,0 0 40px #d8bfff;
+  transform:scale(1.1);
+}
+
+/* ===== Footer ===== */
+footer{
+  text-align:center;
+  padding:20px;
+  background:#111;
+  color:#a020f0;
+}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  .hero h1{font-size:2.2rem;}
+  .vehicle-grid{padding:0 20px 50px 20px;}
+  nav{padding:10px 20px;}
+  nav ul li{margin-left:15px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <div class="logo">GoVenture</div>
+  <ul>
+    <li><a href="#cars">Cars</a></li>
+    <li><a href="#bikes">Bikes</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#trains">Trains</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Explore Your Dashing Dream Ride</h1>
+    <p>From luxurious cars to high-speed bikes, planes, and trains, discover detailed specifications, performance, and stunning visuals of your favorite vehicles.</p>
+    <a href="#cars" class="btn">View Vehicles</a>
+  </div>
+</section>
+
+<!-- Categories -->
+<div class="categories">
+  <a href="#cars">Cars</a>
+  <a href="#bikes">Bikes</a>
+  <a href="#planes">Planes</a>
+  <a href="#trains">Trains</a>
+</div>
+
+<!-- Cars Section -->
+  <h2>Cars</h2>
+<section id="cars" class="vehicle-grid">
+    
+ 
+  <div class="vehicle-card">
+    <img src="./bmwm3.jpg" alt="BMW M3">
+    <div class="vehicle-info">
+      <h3>BMW M3</h3>
+      <p>Luxury Sedan with high performance.</p>
+      <ul>
+        <li>480 HP engine</li>
+        <li>0-100 km/h in 4.1s</li>
+        <li>Top Speed: 250 km/h</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+  <div class="vehicle-card">
+    <img src="./mercedes amg.jpg" alt="Mercedes AMG">
+    <div class="vehicle-info">
+      <h3>Mercedes AMG</h3>
+      <p>High-performance sports car.</p>
+      <ul>
+        <li>503 HP engine</li>
+        <li>0-100 km/h in 3.6s</li>
+        <li>Top Speed: 290 km/h</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+  <div class="vehicle-card">
+    <img src="./bike1.jpg" alt="Audi R8">
+    <div class="vehicle-info">
+      <h3>Audi R8</h3>
+      <p>Supercar with sleek design and power.</p>
+      <ul>
+        <li>562 HP engine</li>
+        <li>0-100 km/h in 3.4s</li>
+        <li>Top Speed: 330 km/h</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+</section>
+
+<!-- Bikes Section -->
+ <h2>Bikes</h2>
+<section id="bikes" class="vehicle-grid">
+  
+  <div class="vehicle-card">
+    <img src="./ducati.jpg" alt="Ducati Panigale">
+    <div class="vehicle-info">
+      <h3>Ducati Panigale</h3>
+      <p>Extreme sports bike.</p>
+      <ul>
+        <li>214 HP engine</li>
+        <li>0-100 km/h in 2.9s</li>
+        <li>Top Speed: 299 km/h</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+  <div class="vehicle-card">
+    <img src="./kawasaki ninja.jpg" alt="Kawasaki Ninja">
+    <div class="vehicle-info">
+      <h3>Kawasaki Ninja</h3>
+      <p>High-speed superbike.</p>
+      <ul>
+        <li>200 HP engine</li>
+        <li>Top Speed: 299 km/h</li>
+        <li>Advanced braking system</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+  <div class="vehicle-card">
+    <img src="./bike1.jpg" alt="Yamaha R1">
+    <div class="vehicle-info">
+      <h3>Yamaha R1</h3>
+      <p>Agile racing motorcycle.</p>
+      <ul>
+        <li>197 HP engine</li>
+        <li>Top Speed: 299 km/h</li>
+        <li>Lightweight chassis</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+</section>
+
+<!-- Planes Section -->
+ <h2>Planes</h2>
+<section id="planes" class="vehicle-grid">
+  
+  <div class="vehicle-card">
+    <img src="./b.jpg" alt="Boeing 747">
+    <div class="vehicle-info">
+      <h3>Boeing 747</h3>
+      <p>Large passenger jet.</p>
+      <ul>
+        <li>416 Seats</li>
+        <li>Cruising Speed: 907 km/h</li>
+        <li>Fuel-efficient engines</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+  <div class="vehicle-card">
+    <img src="./a.jpg" alt="Airbus A320">
+    <div class="vehicle-info">
+      <h3>Airbus A320</h3>
+      <p>Medium-range jet.</p>
+      <ul>
+        <li>180 Seats</li>
+        <li>Speed: 828 km/h</li>
+        <li>Modern cabin interiors</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+  <div class="vehicle-card">
+    <img src="./plain1.jpg" alt="Cessna Citation">
+    <div class="vehicle-info">
+      <h3>Cessna Citation</h3>
+      <p>Private jet for short luxury flights.</p>
+      <ul>
+        <li>12 Seats</li>
+        <li>Speed: 800 km/h</li>
+        <li>Luxury interior</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+</section>
+
+<!-- Trains Section -->
+  <h2>Trains</h2>
+<section id="trains" class="vehicle-grid">
+ 
+  <div class="vehicle-card">
+    <img src="./s.jpg" alt="Shatabdi Express">
+    <div class="vehicle-info">
+      <h3>Shatabdi Express</h3>
+      <p>Fast city-to-city train.</p>
+      <ul>
+        <li>Speed: 130 km/h</li>
+        <li>AC & Non-AC Coaches</li>
+        <li>Modern seating</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+  <div class="vehicle-card">
+    <img src="./t.jpg" alt="Bullet Train">
+    <div class="vehicle-info">
+      <h3>Bullet Train</h3>
+      <p>High-speed luxury train.</p>
+      <ul>
+        <li>Speed: 300 km/h</li>
+        <li>Panoramic windows</li>
+        <li>Modern amenities</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+  <div class="vehicle-card">
+    <img src="./train1.jpg" alt="Gatimaan Express">
+    <div class="vehicle-info">
+      <h3>Gatimaan Express</h3>
+      <p>India's fastest train.</p>
+      <ul>
+        <li>Speed: 160 km/h</li>
+        <li>Executive Chair Cars</li>
+        <li>WiFi & AC</li>
+      </ul>
+      <a href="#">View Details</a>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about">
+  <h2>About GoVenture</h2>
+  <p>GoVenture brings you a stunning collection of cars, bikes, planes, and trains. Explore detailed specifications, high-quality images, and performance metrics of your dream rides in a beautifully designed, interactive interface.</p>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact">
+  <h2>Contact Us</h2>
+  <form>
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  &copy; 2025 GoVenture. All rights reserved.
+</footer>
+
+</body>
+</html>
